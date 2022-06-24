@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Pagina Inicial</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="/css/default.css" />
+        <h:outputStylesheet name="/css/primeflex.min.css" />
+    </h:head>
+        <body>
+            <ui:composition template="./homeCliente.xhtml">
+                
+                <ui:define name="bodyPage">
+                    <h:form id="form">
+                                 <p:growl id="growl" showDetail="true"  />
+                <p:messages id="messages" showDetail="true" showSummary="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                    <div class="p-formgroup-inline campos">
+                        <div class="p-field">
+                            <label for="agência" class="p-sr-only">Agência</label>
+                            <p:inputMask id="agência" type="text" mask="9999" />
+                        </div>
+                        <div class="p-field">
+                            <label for="conta" class="p-sr-only">Conta</label>
+                            <p:inputMask id="conta" type="text" mask="99999999-9" />
+
+                        </div>
+                        <div class="p-field">
+                         <label for="saque" class="p-sr-only">Valor do Saque</label>
+                         <p:inputText type="text" id="saque"
+                                      value="#{controleConta.conta.saque}"/>
+                        </div>
+                       <div class="form-group">       
+                           <p:commandButton class="btn float-right cadastrar_btn" value="Sacar" action="#{controleConta.autenticarSaque()}" />
+                        </div>
+                    </div>
+                                  </h:form>
+                </ui:define>
+               
+            </ui:composition>
+
+            <div>TODO write content</div>
+        </body>
+</html>

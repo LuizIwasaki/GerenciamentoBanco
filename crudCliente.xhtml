@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="style/css.css"/>
+    </head>
+
+    <body>
+        <ui:composition template="./homeFuncionario.xhtml">
+
+            <ui:define name="titulo">
+                Cadastrar Cliente
+            </ui:define>
+            <ui:define name="bodyPage">
+                <p:growl id="growl" showDetail="true"  />
+                <p:messages id="messages" showDetail="true" showSummary="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <p:dialog widgetVar="clienteDialog" responsive="true">
+                    <h:form class="dialog">
+                        <p:inputText type="text" class="form-control" 
+                                     value="#{controleCliente.cliente.nomeCliente}" placeholder="Usuário"/>
+                        <p:inputMask type="text"  class="form-control" 
+                                     mask="999.999.999-99" value="#{controleCliente.cliente.cpfCliente}" placeholder="CPF"/>
+                        <br></br>
+                        <p:inputText type="text"  class="form-control"  value="#{controleCliente.cliente.ruaCliente}" placeholder="Rua"/>
+                        <p:inputText type="text"  class="form-control"  value="#{controleCliente.cliente.numeroCliente}" placeholder="Número da residência"/>
+                        <br></br>
+                        <p:datePicker id="data" 
+                                      value="#{controleCliente.cliente.dataNascimento}" placeholder="Data de Nascimento" />
+
+                        <p:inputText type="password" class="form-control" value="#{controleCliente.cliente.senhaCliente}" placeholder="Senha"/>
+                        <div class="form-group">       
+                            <p:commandButton class="btn float-right cadastrar_btn" value="Cadastrar" update=":formTabela:tabela" action="#{controleCliente.cadastrarCliente()}" />
+                        </div>
+                    </h:form>
+                </p:dialog>
+                <h:form id="formTabela">
+                    <p:dataTable id="tabela" var="item" lazy="true"
+                                 value="#{controleCliente.clientes}"
+                                 selection="#{controleCliente.clienteSelecionado}"
+                                 selectionMode="single"
+                                 rowKey="#{item.cpfCliente}"
+                                 stripedRows="true"
+                                 paginator="true"
+                                 rows="5">
+
+                        <p:column headerText="Nome" 
+                                  sortBy="#{item.nomeCliente}"
+                                  filterBy="#{item.nomeCliente}" 
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{item.nomeCliente}" />
+                        </p:column>
+
+                        <p:column headerText="CPF"  
+                                  filterBy="#{item.cpfCliente}"
+                                  sortBy="#{item.cpfCliente}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{item.cpfCliente}" />
+                        </p:column>
+                        <p:column headerText="Rua"  
+                                  filterBy="#{item.ruaCliente}"
+                                  sortBy="#{item.ruaCliente}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{item.ruaCliente}" />
+                        </p:column>
+                        <p:column headerText="Número"  
+                                  filterBy="#{item.numeroCliente}"
+                                  sortBy="#{item.numeroCliente}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{item.numeroCliente}" />
+                        </p:column>
+                        <p:column headerText="Data Nascimento"  
+                                  filterBy="#{item.dataNascimento}"
+                                  sortBy="#{item.dataNascimento}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{item.dataNascimento}" />
+                        </p:column>
+                        <f:facet name="header">
+                            Clientes
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Excluir" styleClass="ui-button-danger"
+                                             update="tabela :growl formTabela:tabela"
+                                             action="#{controleFuncionario.excluirCliente()}"/>
+
+                            <p:commandButton value="Cadastrar" icon="pi pi-user-plus" 
+                                             update=":formTabela:tabela" oncomplete="PF('clienteDialog').show()" styleClass="ui-button-success"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

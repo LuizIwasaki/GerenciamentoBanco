@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Pagina Inicial</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="/css/default.css" />
+        <h:outputStylesheet name="/css/primeflex.min.css" />
+    </h:head>
+    
+    <h:body style="margin: 2px; margin-top: -2px;">
+        
+        <div class="card" style="background-color: #708090; padding: 30px; padding-bottom: 50px;">
+            <ui:insert name="menu">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+            <p:menuitem  value="Home" icon="pi pi-fw pi-home">
+            </p:menuitem>  
+            <p:submenu label="Operações" icon="pi pi-fw pi-percentage">
+                <p:menuitem value="Saque" icon="pi pi-fw pi-align-money-bill" url="./saque.xhtml"/>
+                <p:menuitem value="Depósito" icon="pi pi-fw pi-align-dollar"/>
+                <p:menuitem value="Transferência" icon="pi pi-fw pi-align-center"/> 
+            </p:submenu>
+
+            <p:submenu label="Registros" icon="pi pi-fw pi-user">
+                <p:menuitem value="Extrato" icon="pi pi-fw pi-user-plus"/>
+                <p:menuitem value="Depósito por envelope" icon="pi pi-fw pi-user-minus"/>
+            </p:submenu>
+            <f:facet name="options">
+                <div class="ui-input-icon-left p-mr-2">
+                </div>
+                <p:button value="Logout" icon="pi pi-fw pi-sign-out" href="./loginCliente.xhtml" styleClass="ui-button-info"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+            </ui:insert>
+            <ui:insert name="bodyPage"></ui:insert>
+</div>
+        
+    </h:body>
+</html>
